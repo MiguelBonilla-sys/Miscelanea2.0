@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tabla de personas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a id="boton-Inicio" class="navbar-brand" href="#">Miscelania</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a id="boton-tabla-persona" class="nav-link" href="#">Tabla Persona</a>
+                </li>
+                <li class="nav-item">
+                    <a id="boton-tabla-productos" class="nav-link" href="#">Tabla productos</a>
+                </li>
+                <li class="nav-item">
+                    <a id="boton-tabla-factura" class="nav-link" href="#">Tabla factura</a>
+                </li>
+                <!-- Agrega más botones si es necesario -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" id = "filtro">
+        <h2>Filtrar por nombre y idproducto - Eliminar idproducto </h2>
+        <form method="GET" action="{% url 'form_tabla_producto' %}">
+            <input type="text" name="nombre" placeholder="Ingresa el nombre del producto">
+            <input type="text" name="idproductos" placeholder="Ingresa el idproducto">
+            <input type="submit" class="btn btn-dark" value="Filtrar">
+            <a href="{% url 'form_tabla_producto' %}" class="btn btn-dark">Restablecer</a>
+        </form>
+        <div class="container" id = "eliminar">
+            <h2>Eliminar por idproducto</h2>
+            <form method="delete" action="{% url 'form_tabla_producto' %}">
+                <input type="text" name="idproductos" placeholder="Ingresa el idproducto">
+                <input type="submit" class="btn btn-dark" value="Eliminar">
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla Persona -->
+    <div class="container mt-4">
+        <h2>Tabla de Personas</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID producto</th>
+                    <th>Nombre</th>
+                    <th>precio</th>
+                    <th>Id Stock</th>
+                    <th>unidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.idproductos }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.precio }}</td>
+                    <td>{{ producto.stock_idstock }}</td>
+                    <td>{{ producto.unidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Selecciona el botón por su ID
+            var botonInicio = document.getElementById("boton-Inicio");
+            var botonProductos = document.getElementById("boton-tabla-persona");
+            var botonFactura = document.getElementById("boton-tabla-factura");
+
+            botonFactura.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaFactura' %}"; // Si utilizas plantillas de Django
+            });
+
+            botonProductos.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaPersona' %}"; // Si utilizas plantillas de Django
+            });
+
+
+            // Agrega un evento de clic al botón
+            botonInicio.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_list' %}"; // Si utilizas plantillas de Django
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

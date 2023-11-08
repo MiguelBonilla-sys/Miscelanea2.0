@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tabla de personas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a id="boton-Inicio" class="navbar-brand" href="#">Miscelania</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a id="boton-tabla-persona" class="nav-link" href="#">Tabla Persona</a>
+                </li>
+                <li class="nav-item">
+                    <a id="boton-tabla-productos" class="nav-link" href="#">Tabla productos</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a id="boton-tabla-factura" class="nav-link" href="#">Tabla factura</a>
+                </li>
+                <!-- Agrega más botones si es necesario -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" id = "filtro">
+        <h2>Filtrar por ciudad y tipo de persona</h2>
+        <form method="GET" action="{% url 'form_tabla_persona' %}">
+            <input type="text" name="ciudad" placeholder="Ingresa la ciudad">
+            <input type="text" name="tipopersona" placeholder="Ingresa el tipo de persona">
+            <input type="submit" class="btn btn-dark" value="Filtrar">
+            <a href="{% url 'form_tabla_persona' %}" class="btn btn-dark">Restablecer</a>
+        </form>
+
+        <h2>Actualizar Datos</h2>
+        <form method="POST" action="{% url 'form_tabla_persona' %}">
+            {% csrf_token %}
+            <input type="text" name="idpersona" placeholder="Ingresa el id de la persona">
+            <input type="text" name="cargo" placeholder="Ingresa el cargo">
+            <input type="text" name="tipo_de_documento" placeholder="Ingresa el tipo de documento">
+            <input type="text" name="nombre" placeholder="Ingresa el nombre">
+            <input type="text" name="telefono" placeholder="Ingresa el telefono">
+            <input type="text" name="ciudad" placeholder="Ingresa la ciudad">
+            <input type="text" name="direccion" placeholder="Ingresa la direccion">
+            <input type="text" name="email" placeholder="Ingresa el email">
+            <input type="submit" class="btn btn-dark" value="Actualizar">
+        </form>
+    </div>
+
+    <!-- Tabla Persona -->
+    <div class="container mt-4">
+        <h2>Tabla de Personas</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID Persona</th>
+                    <th>Tipo Persona</th>
+                    <th>Tipo de Documento</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Ciudad</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for persona in personas %}
+                <tr>
+                    <td>{{ persona.idpersona }}</td>
+                    <td>{{ persona.tipopersona.cargo}}</td> 
+                    <td>{{ persona.tipodedocumento}}</td>
+                    <td>{{ persona.nombre }}</td>
+                    <td>{{ persona.telefono }}</td>
+                    <td>{{ persona.ciudad }}</td>
+                    <td>{{ persona.direccion }}</td>
+                    <td>{{ persona.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Selecciona el botón por su ID
+            var botonInicio = document.getElementById("boton-Inicio");
+            var botonProductos = document.getElementById("boton-tabla-productos");
+            var botonFactura = document.getElementById("boton-tabla-factura");
+
+            botonFactura.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaFactura' %}"; // Si utilizas plantillas de Django
+            });
+
+            botonProductos.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaProducto' %}"; // Si utilizas plantillas de Django
+            });
+
+
+            // Agrega un evento de clic al botón
+            botonInicio.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_list' %}"; // Si utilizas plantillas de Django
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

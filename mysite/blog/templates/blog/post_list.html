@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mi Página Web</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Miscelania</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a id="boton-tabla-persona" class="nav-link" href="#">Tabla Persona</a>
+                </li>
+                <li class="nav-item">
+                    <a id="boton-tabla-productos" class="nav-link" href="#">Tabla productos</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a id="boton-tabla-factura" class="nav-link" href="#">Tabla factura</a>
+                </li>
+                <!-- Agrega más botones si es necesario -->
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Miscelania</h1>
+        <div class="container" 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Una página web de una miscelánea es un sitio en línea que ofrece una variedad de productos o servicios diversos en un solo lugar.</h6>
+                </div>
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Id Persona</th>
+                                <th>Tipo</th>
+                                <th>Cargo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>cliente</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>Prooveddor</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>3</td>
+                                <td>Empleado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap (asegúrate de incluir jQuery y Popper.js antes) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Selecciona el botón por su ID
+            var botonTablaPersona = document.getElementById("boton-tabla-persona");
+            var botonProductos = document.getElementById("boton-tabla-productos");
+            var botonFactura = document.getElementById("boton-tabla-factura");
+
+            botonFactura.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaFactura' %}"; // Si utilizas plantillas de Django
+            });
+
+            botonProductos.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaProducto' %}"; // Si utilizas plantillas de Django
+            });
+
+            // Agrega un evento de clic al botón
+            botonTablaPersona.addEventListener("click", function() {
+                // Redirige a la página "post_TablaPersona.html"
+                window.location.href = "{% url 'post_TablaPersona' %}"; // Si utilizas plantillas de Django
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
