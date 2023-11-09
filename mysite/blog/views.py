@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from blog.models import Persona, Productos, Factura, Post, Tipopersona
 from blog.forms import PersonaForm, ProductosForm, FacturaForm
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator
@@ -21,9 +22,13 @@ def form_tabla_persona(request):
     tipopersonas = Tipopersona.objects.values('cargo')
     # Remplaza el campo tipopersona por el campo cargo
     for persona in personas_list:
-        persona.tipopersona = persona.tipopersona.cargo
-    
-
+        try:
+            # Coge el modelo Tipopersona pero solo el campo cargo
+            tipopersona = Tipopersona.objects.get(cargo=persona.tipopersona.cargo)
+            persona.tipopersona = tipopersona
+        except ObjectDoesNotExist:
+            print(f"No se encontró un Tipopersona con el cargo {persona.tipopersona.cargo}")
+    # Aquí creamos un diccionario con los datos necesarios para el formulario
     ciudadBuscada = request.GET.get('ciudad')
     if ciudadBuscada:
         personas_list = personas_list.filter(ciudad=ciudadBuscada)
@@ -38,6 +43,7 @@ def form_tabla_persona(request):
             persona = Persona.objects.get(idpersona=idpersona)
         except Persona.DoesNotExist:
             return HttpResponse('Persona no encontrada')
+        
         persona.tipopersona.cargo = request.POST['cargo']
         persona.tipo_de_documento = request.POST['tipodedocumento']
         persona.nombre = request.POST['nombre']
